@@ -32,7 +32,8 @@ class Circle{
   }
   
   void update(){
-    this.angle += this.speed*2*PI;
+    //this.angle += this.speed*2*PI;
+    this.angle += this.speed*2*PI*1/60;
   }
   
   void display(){
@@ -41,9 +42,9 @@ class Circle{
     }
     
     rotate(this.angle);
-    stroke(255, 50);
+    stroke(255, 10);
     ellipse(0, 0, 2*this.size, 2*this.size);
-    stroke(255);
+    stroke(255, 50);
     line(0, 0, 2.0/3*this.size, 0);
     triangle(this.size, 0, 2.0/3*this.size, 1.0/6*this.size, 2.0/3*this.size, -1.0/6*this.size);
     translate(this.size, 0);
