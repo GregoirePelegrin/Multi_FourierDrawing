@@ -47,5 +47,6 @@ class Circle{
     line(0, 0, 2.0/3*this.size, 0);
     triangle(this.size, 0, 2.0/3*this.size, 1.0/6*this.size, 2.0/3*this.size, -1.0/6*this.size);
     translate(this.size, 0);
+    rotate(-this.angle);
   }
 }

@@ -7,7 +7,7 @@ int nbrCircles;
 ArrayList<FloatList> drawing;
 
 void setup(){
-  size(600, 600);
+  fullScreen();
   frameRate(30);
   
   initAngleList = new FloatList();
@@ -18,15 +18,20 @@ void setup(){
   drawing = new ArrayList<FloatList>();
   
   for(int i = 0; i<nbrCircles; i++){
+    // Positive frequency
     initAngleList.append(i * PI/nbrCircles);
     sizeList.append(100 * (nbrCircles-i)/nbrCircles);
     speedList.append(map(i, 0, nbrCircles, PI/960, PI/240));
+    // Negative frequency
+    initAngleList.append(i * PI/nbrCircles);
+    sizeList.append(100 * (nbrCircles-i)/nbrCircles);
+    speedList.append(- map(i, 0, nbrCircles, PI/960, PI/240));
   }
   
   Circle circle = new Circle(speedList.get(0), sizeList.get(0), initAngleList.get(0));
   circle.setFirst();
   circles.add(circle);
-  for(int i = 1; i<nbrCircles; i++){
+  for(int i = 1; i<nbrCircles*2; i++){
     circle = new Circle(speedList.get(i), sizeList.get(i), initAngleList.get(i));
     circles.get(i-1).setNext(circle);
     circle.setPrecedent(circles.get(i-1));
@@ -40,7 +45,7 @@ void draw(){
   translate(width/2, height/2);
   noFill();
   
-  if(drawing.size() > 500){
+  if(drawing.size() > 5000){
     drawing.remove(0);
   }
   beginShape();
@@ -54,21 +59,24 @@ void draw(){
   }
   lastCircle.display();
   
+  drawing.add(getPoint());
+}
+
+FloatList getPoint(){
   FloatList coord = new FloatList();
-  float totalAngle = 0;
   float xCoord = 0;
   float yCoord = 0;
+  
   Circle currentCircle = circles.get(0);
   while(currentCircle.hasNext){
-    totalAngle += currentCircle.angle;
-    xCoord += currentCircle.size * cos(totalAngle);
-    yCoord += currentCircle.size * sin(totalAngle);
+    xCoord += currentCircle.size * cos(currentCircle.angle);
+    yCoord += currentCircle.size * sin(currentCircle.angle);
     currentCircle = currentCircle.next;
   }
-  totalAngle += currentCircle.angle;
-  xCoord += currentCircle.size * cos(totalAngle);
-  yCoord += currentCircle.size * sin(totalAngle);
+  xCoord += currentCircle.size * cos(currentCircle.angle);
+  yCoord += currentCircle.size * sin(currentCircle.angle);
+  
   coord.append(xCoord);
   coord.append(yCoord);
-  drawing.add(coord);
+  return coord;
 }
