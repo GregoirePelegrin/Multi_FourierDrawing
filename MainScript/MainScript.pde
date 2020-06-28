@@ -1,6 +1,8 @@
 BufferedReader reader;
 String line;
 
+FloatList xList;
+FloatList yList;
 FloatList initAngleList;
 FloatList sizeList;
 FloatList speedList;
@@ -13,9 +15,28 @@ void setup(){
   fullScreen();
   frameRate(30);
   
+  xList = new FloatList();
+  yList = new FloatList();
   initAngleList = new FloatList();
   sizeList = new FloatList();
   speedList = new FloatList();
+  
+  reader = createReader("ListEdgesSorted.txt");
+  line = "Hi";
+  while(line != null){
+    try{
+      line = reader.readLine();
+    } catch(IOException e) {
+      e.printStackTrace();
+      line = null;
+      noLoop();
+    }
+    if(line != null){
+      String[] pieces = split(line, ",");
+      xList.append(float(pieces[0]));
+      yList.append(float(pieces[1]));
+    }
+  }
   
   reader = createReader("ListCoeffs.txt");
   line = "Hi";
@@ -56,8 +77,15 @@ void draw(){
   translate(width/2, height/2);
   noFill();
   
+  /*stroke(255, 0, 0, 255);
+  beginShape();
+  for(int i=0; i<xList.size(); i++){
+    vertex(xList.get(i), yList.get(i));
+  }
+  endShape();*/
+  
   stroke(255, 255);
-  if(drawing.size() > 5000){
+  if(drawing.size() > 1000){
     drawing.remove(0);
   }
   beginShape();

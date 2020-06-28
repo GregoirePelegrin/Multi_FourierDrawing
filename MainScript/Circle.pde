@@ -33,7 +33,7 @@ class Circle{
   
   void update(){
     //this.angle += this.speed*2*PI;
-    this.angle += this.speed*2*PI*1/60;
+    this.angle += this.speed*2*PI*1/480;
   }
   
   void display(){
