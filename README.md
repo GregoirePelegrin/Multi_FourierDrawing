@@ -8,3 +8,5 @@ https://www.youtube.com/watch?v=r6sGWTCMz2k&t=1101s
 Edge detection: https://towardsdatascience.com/edge-detection-in-python-a3c263a13e03
 
 The "edge list" is then rearranged by a homemade Near Neighbour Algorithm
+
+Problem comes from the obtention of the edges...
